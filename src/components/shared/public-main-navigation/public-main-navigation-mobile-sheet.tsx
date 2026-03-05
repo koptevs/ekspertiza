@@ -8,6 +8,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from '@/components/ui/sheet';
+import { ModeToggle } from '../mode-toggle';
 
 const PublicMainNavigationMobile = () => {
     return (
@@ -21,6 +22,7 @@ const PublicMainNavigationMobile = () => {
                             This action cannot be undone.
                         </SheetDescription>
                     </SheetHeader>
+                    <ModeToggle />
                 </SheetContent>
             </Sheet>
         </div>

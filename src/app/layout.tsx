@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Figtree } from 'next/font/google';
 import '@/styles/globals.css';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -25,11 +26,27 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={figtree.variable}>
+        <html lang="en" suppressHydrationWarning>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} ${figtree.variable} antialiased`}
+                // step
+                // className={cn(
+                //     geistMono.className,
+                //     'text-[15px] antialiased',
+                //     notoSansRegular.variable,
+                //     geistSans.variable,
+                //     geistMono.variable,
+                //     inter.variable,
+                // )}
             >
-                {children}
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    {children}
+                </ThemeProvider>
             </body>
         </html>
     );

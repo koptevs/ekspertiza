@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 // import PublicMainNavigationMobile from './public-main-navigation-mobile-sheet';
 import PublicMainNavigationMobile from './public-main-navigation-mobile-drawer';
+import { ModeToggle } from '../mode-toggle';
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -59,19 +60,17 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function PublicMainNavigation() {
     return (
-        <div className="container mx-auto flex h-[56px] w-full max-w-2xl justify-between px-6 lg:max-w-7xl">
+        <div className="container grid h-[56px] w-full max-w-2xl grid-cols-3 justify-center px-6 lg:max-w-7xl">
+            {/* <div className="container flex h-[56px] w-full max-w-2xl justify-between px-6 lg:max-w-7xl"> */}
             {/* <div className="flex items-center">LOGO</div> */}
-            <Link
-                href="/"
-                className="flex min-w-max items-center justify-center gap-2"
-            >
+            <Link href="/" className="flex min-w-max items-center gap-2">
                 {/* <img
                         src="/assets/images/site-logo.png"
                         alt="Site Logo"
                         width={20}
                         height={20}
                     /> */}
-                <div className="py-2 font-bold">EKSPERTIZA</div>
+                <span className="font-bold">EKSPERTIZA</span>
                 {/*TODO replace logo with SVG*/}
                 {/*<svg*/}
                 {/*    className="size-5 sm:size-6"*/}
@@ -86,6 +85,7 @@ export default function PublicMainNavigation() {
 
                 {/*</svg>*/}
             </Link>
+            <ModeToggle />
             <NavigationMenu className="max-sm:hidden">
                 <NavigationMenuList>
                     <NavigationMenuItem>
@@ -235,6 +235,7 @@ export default function PublicMainNavigation() {
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>
+            {/* <ModeToggle /> */}
             <PublicMainNavigationMobile />
         </div>
     );

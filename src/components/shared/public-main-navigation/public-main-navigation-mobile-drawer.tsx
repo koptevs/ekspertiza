@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 const PublicMainNavigationMobile = () => {
     return (
-        <div className="ml-4 flex w-full items-center justify-end sm:hidden">
+        <div className="flex w-full items-center justify-end sm:hidden">
             <Drawer direction="right">
                 <DrawerTrigger asChild>
                     <Button variant="ghost">
