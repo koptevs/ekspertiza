@@ -43,7 +43,10 @@ export default function RootLayout({
             )}
             lang='en'
         >
-            <body className='flex min-h-full flex-col'>{children}</body>
+            {/* <body className='flex min-h-full flex-col'> */}
+            <body className='wrap-anywhere font-sans antialiased selection:bg-[rgba(79,184,178,0.24)]'>
+                {children}
+            </body>
         </html>
     );
 }
