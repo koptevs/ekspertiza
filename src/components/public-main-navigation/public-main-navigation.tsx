@@ -1,13 +1,14 @@
 'use client';
-
 import {
     CircleAlertIcon,
     CircleCheckIcon,
     CircleDashedIcon,
 } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import type * as React from 'react';
+import { toast } from 'sonner';
 import ModeToggle from '@/components/theme-toggle';
-// import { authClient } from '@/lib/auth-client';
 import { Button } from '@/components/ui/button';
 import {
     NavigationMenu,
@@ -18,12 +19,9 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { authClient } from '@/lib/auth-client';
 // import PublicMainNavigationMobile from './public-main-navigation-mobile-sheet';
 import PublicMainNavigationMobile from './public-main-navigation-mobile-drawer';
-// import { toast } from 'sonner';
-
-// import { authClient } from '#/lib/auth-client';
-import Link from 'next/link';
 
 const components: { title: string; href: string; description: string }[] = [
     {
@@ -64,31 +62,34 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export default function PublicMainNavigation() {
-    // const { data: session, isPending } = authClient.useSession();
-    // const navigate = useNavigate();
+    const { data: session, isPending } = authClient.useSession();
+    console.log('session:', session)
+    const router = useRouter();
 
-    // async function handleSignOut() {
-    //     await authClient.signOut({
-    //         fetchOptions: {
-    //             onSuccess: () => {
-    //                 toast.info('Logged out', {
-    //                     position: 'top-center',
-    //                     duration: 1000,
-    //                 });
-    //                 router.push('/'); // redirect to login page
-    //             },
-    //             onError: (error) => {
-    //                 toast.error(error.error.message || 'Failed to sign Out', {
-    //                     position: 'top-center',
-    //                 });
-    //                 console.log('ERROR_IK: ', error);
-    //             },
-    //         },
-    //     });
-    // }
-    // if (isPending) {
-    //     return <div className="h-8 w-8 animate-pulse bg-neutral-100 dark:bg-neutral-800" />;
-    // }
+    async function handleSignOut() {
+        await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    toast.info('Logged out', {
+                        position: 'top-center',
+                        duration: 1000,
+                    });
+                    router.push('/'); // redirect to login page
+                },
+                onError: (error) => {
+                    toast.error(error.error.message || 'Failed to sign Out', {
+                        position: 'top-center',
+                    });
+                    console.log('ERROR_IK: ', error);
+                },
+            },
+        });
+    }
+    if (isPending) {
+        return (
+            <div className='h-8 w-8 animate-pulse bg-neutral-100 dark:bg-neutral-800' />
+        );
+    }
     return (
         <div className='container mx-auto flex h-[56px] w-full max-w-2xl justify-between px-6 lg:max-w-7xl'>
             {/* <div className="flex items-center">LOGO</div> */}
@@ -251,39 +252,41 @@ export default function PublicMainNavigation() {
                             </ul>
                         </NavigationMenuContent>
                     </NavigationMenuItem>
-                    {/* {session?.user && ( */}
-                    <NavigationMenuItem>
-                        <div className='flex items-center gap-2'>
-                            <Button
-                                onClick={() => {
-                                    // void authClient.signOut({
-                                    //     fetchOptions: {
-                                    //         onSuccess: () => {
-                                    //             navigate({ to: '/' }); // redirect to login page
-                                    //         },
-                                    //     },
-                                    // });
-                                }}
-                                variant='outline'
-                            >
-                                Sign out
-                            </Button>
-                            {/* {session.user.image ? (
+                    {session?.user && (
+                        <NavigationMenuItem>
+                            <div className='flex items-center gap-2'>
+                                <Button
+                                    onClick={() => {
+                                        void authClient.signOut({
+                                            fetchOptions: {
+                                                onSuccess: () => {
+                                                    router.push('/'); // redirect to login page
+                                                },
+                                            },
+                                        });
+                                    }}
+                                    variant='outline'
+                                >
+                                    Sign out
+                                </Button>
+                                {session.user.image ? (
                                     <img
+                                        alt=''
+                                        className='h-8 w-8'
                                         src={session.user.image}
-                                        alt=""
-                                        className="h-8 w-8"
                                     />
                                 ) : (
-                                    <div className="flex h-8 w-8 items-center justify-center bg-neutral-100 dark:bg-neutral-800">
-                                        <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
-                                            {session.user.name.charAt(0).toUpperCase() || 'U'}
+                                    <div className='flex h-8 w-8 items-center justify-center bg-neutral-100 dark:bg-neutral-800'>
+                                        <span className='font-medium text-neutral-600 text-xs dark:text-neutral-400'>
+                                            {session.user.name
+                                                .charAt(0)
+                                                .toUpperCase() || 'U'}
                                         </span>
                                     </div>
-                                )} */}
-                        </div>
-                    </NavigationMenuItem>
-                    {/* )} */}
+                                )}
+                            </div>
+                        </NavigationMenuItem>
+                    )}
                     {/* {loggedIn ? (
                         <NavigationMenuItem>
                             <NavigationMenuLink
