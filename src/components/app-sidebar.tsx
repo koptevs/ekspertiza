@@ -5,6 +5,7 @@ import {
     BookOpen,
     Bot,
     Command,
+    ContactRound,
     Frame,
     GalleryVerticalEnd,
     Map,
@@ -63,17 +64,11 @@ const data = {
                     url: '/dashboard/settings/profile',
                     icon: UserRoundCog,
                 },
+
                 {
-                    title: 'Team',
-                    url: '#',
-                },
-                {
-                    title: 'Billing',
-                    url: '#',
-                },
-                {
-                    title: 'Limits',
-                    url: '#',
+                    title: 'Account',
+                    url: '/dashboard/settings/account',
+                    icon: ContactRound,
                 },
             ],
         },
