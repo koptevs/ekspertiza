@@ -22,7 +22,7 @@ const signInSchema = z.object({
         .string()
         .min(1, 'Please enter your password.')
         .min(7, 'Password must be at least 7 characters long.')
-        .max(16, 'Too long password'),
+        .max(25, 'Too long password'),
 });
 
 interface SignInFormProps extends React.HTMLAttributes<HTMLFormElement> {
