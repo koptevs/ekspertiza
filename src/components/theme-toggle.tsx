@@ -9,12 +9,11 @@ import { cn } from '@/lib/utils';
 type ThemeMode = 'light' | 'dark' | 'system';
 
 export default function ModeToggle() {
-    const { theme, setTheme } = useTheme();
+    const { theme, resolvedTheme, setTheme } = useTheme();
     function toggleMode() {
         const nextMode: ThemeMode = theme === 'dark' ? 'light' : 'dark';
         setTheme(nextMode);
     }
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
     const label =
         theme === 'system'
             ? 'Theme mode: system. Click to switch mode.'
@@ -22,11 +21,12 @@ export default function ModeToggle() {
 
     let switcherIcon: ReactElement;
     if (theme === 'system') {
-        switcherIcon = media ? (
-            <Moon className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
-        ) : (
-            <Sun className='h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
-        );
+        switcherIcon =
+            resolvedTheme === 'dark' ? (
+                <Moon className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+            ) : (
+                <Sun className='h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
+            );
     } else if (theme === 'dark') {
         switcherIcon = (
             <Sun className='h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
@@ -75,3 +75,8 @@ export default function ModeToggle() {
         // </DropdownMenu>
     );
 }
+/*
+Build succeeds now.
+Root cause: theme-toggle.tsx:17 called window.matchMedia(...) directly in the render body of a client component. During next build's static prerender pass, client components are still rendered on the server, where window doesn't exist — hence the crash. It was also a logic bug: media (the MediaQueryList object) is always truthy, so the old code never actually reflected whether the system preference was dark or light.
+Fix: switched to resolvedTheme from next-themes, which already resolves "system" to the actual light/dark preference without touching window.
+*/
