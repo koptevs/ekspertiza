@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/navigation-menu';
 import { authClient } from '@/lib/auth-client';
 // import PublicMainNavigationMobile from './public-main-navigation-mobile-sheet';
+
 import PublicMainNavigationMobile from './public-main-navigation-mobile-drawer';
 
 const components: { title: string; href: string; description: string }[] = [
@@ -63,7 +64,7 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function PublicMainNavigation() {
     const { data: session, isPending } = authClient.useSession();
-    console.log('session:', session)
+    console.log('session:', session);
     const router = useRouter();
 
     async function handleSignOut() {
@@ -122,6 +123,12 @@ export default function PublicMainNavigation() {
                         <NavigationMenuLink
                             className={navigationMenuTriggerStyle()}
                             render={<Link href='/'>Home</Link>}
+                        />
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            className={navigationMenuTriggerStyle()}
+                            render={<Link href='/dashboard'>Dashboard</Link>}
                         />
                     </NavigationMenuItem>
                     {/* START */}

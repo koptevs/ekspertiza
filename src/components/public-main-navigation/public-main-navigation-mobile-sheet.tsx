@@ -1,4 +1,4 @@
-import ModeToggle from '@/components/ThemeToggle';
+import ModeToggle from '@/components/theme-toggle';
 import {
     Sheet,
     SheetContent,

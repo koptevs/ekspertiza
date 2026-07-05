@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, IBM_Plex_Sans, Inter } from 'next/font/google';
+import { ThemeProvider } from '@/providers/theme-provider';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 
 const interHeading = Inter({ subsets: ['latin'], variable: '--font-heading' });
@@ -45,10 +47,19 @@ export default function RootLayout({
                 interHeading.variable
             )}
             lang='en'
+            suppressHydrationWarning
         >
             {/* <body className='flex min-h-full flex-col'> */}
             <body className='wrap-anywhere font-sans antialiased selection:bg-[rgba(79,184,178,0.24)]'>
-                {children}
+                <ThemeProvider
+                    attribute='class'
+                    defaultTheme='system'
+                    disableTransitionOnChange
+                    enableSystem
+                >
+                    {children}
+                </ThemeProvider>
+                <Toaster richColors />
             </body>
         </html>
     );
