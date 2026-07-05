@@ -9,15 +9,17 @@ import {
     GalleryVerticalEnd,
     Map,
     PieChart,
-    Settings2,
+    Settings,
     SquareTerminal,
+    UserRoundCog,
 } from 'lucide-react';
 import type * as React from 'react';
-
 import { NavMain } from '@/components/nav-main';
 import { NavProjects } from '@/components/nav-projects';
 import { NavUser } from '@/components/nav-user';
 import { TeamSwitcher } from '@/components/team-switcher';
+import ModeToggle from '@/components/theme-toggle';
+
 import {
     Sidebar,
     SidebarContent,
@@ -51,6 +53,30 @@ const data = {
         },
     ],
     navMain: [
+        {
+            title: 'Settings',
+            url: '/dashboard/settings',
+            icon: Settings,
+            items: [
+                {
+                    title: 'Profile',
+                    url: '/dashboard/settings/profile',
+                    icon: UserRoundCog,
+                },
+                {
+                    title: 'Team',
+                    url: '#',
+                },
+                {
+                    title: 'Billing',
+                    url: '#',
+                },
+                {
+                    title: 'Limits',
+                    url: '#',
+                },
+            ],
+        },
         {
             title: 'Playground',
             url: '#',
@@ -113,29 +139,6 @@ const data = {
                 },
             ],
         },
-        {
-            title: 'Settings',
-            url: '#',
-            icon: Settings2,
-            items: [
-                {
-                    title: 'General',
-                    url: '#',
-                },
-                {
-                    title: 'Team',
-                    url: '#',
-                },
-                {
-                    title: 'Billing',
-                    url: '#',
-                },
-                {
-                    title: 'Limits',
-                    url: '#',
-                },
-            ],
-        },
     ],
     projects: [
         {
@@ -165,6 +168,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarContent>
                 <NavMain items={data.navMain} />
                 <NavProjects projects={data.projects} />
+                <div className='text-center'>
+                    <ModeToggle />
+                </div>
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />

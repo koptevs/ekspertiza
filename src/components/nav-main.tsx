@@ -1,7 +1,7 @@
 'use client';
 
 import { ChevronRight, type LucideIcon } from 'lucide-react';
-
+import Link from 'next/link';
 import {
     Collapsible,
     CollapsibleContent,
@@ -16,6 +16,7 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
+    useSidebar,
 } from '@/components/ui/sidebar';
 
 export function NavMain({
@@ -29,9 +30,11 @@ export function NavMain({
         items?: {
             title: string;
             url: string;
+            icon?: LucideIcon;
         }[];
     }[];
 }) {
+    const { setOpenMobile } = useSidebar();
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -59,9 +62,17 @@ export function NavMain({
                                     <SidebarMenuSubItem key={subItem.title}>
                                         <SidebarMenuSubButton
                                             render={
-                                                <a href={subItem.url}>
+                                                <Link
+                                                    href={subItem.url}
+                                                    onClick={() =>
+                                                        setOpenMobile(false)
+                                                    }
+                                                >
+                                                    {subItem.icon && (
+                                                        <subItem.icon />
+                                                    )}
                                                     <span>{subItem.title}</span>
-                                                </a>
+                                                </Link>
                                             }
                                         />
                                     </SidebarMenuSubItem>

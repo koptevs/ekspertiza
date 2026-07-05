@@ -1,3 +1,3 @@
-const SettingsProfilePage = () => <div>SettingsProfilePage</div>;
+const SettingsPage = () => <div>SettingsPage</div>;
 
-export default SettingsProfilePage;
+export default SettingsPage;
