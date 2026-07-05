@@ -39,7 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-/src/db
+
+/src/db/reference_claude
+/src/db/reference_skriemelis
+/src/db/seeds/data
 
 # drizzle generated
 /drizzle

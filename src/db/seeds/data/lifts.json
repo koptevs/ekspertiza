@@ -1,0 +1,27 @@
+[
+    {
+        "regNumber": "4CL223322",
+        "address": "Saules iela 77",
+        "agreementId": 1
+    },
+    {
+        "regNumber": "4CL555777",
+        "address": "Meness iela 77",
+        "agreementId": 2
+    },
+    {
+        "regNumber": "4CL777000",
+        "address": "Miera iela 17",
+        "agreementId": 3
+    },
+    {
+        "regNumber": "4CL777333",
+        "address": "Skudru iela 123",
+        "agreementId": 1
+    },
+    {
+        "regNumber": "4CL111111",
+        "address": "Mudru iela 1",
+        "agreementId": 1
+    }
+]
