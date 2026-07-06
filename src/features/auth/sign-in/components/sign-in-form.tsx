@@ -3,6 +3,7 @@ import { useForm } from '@tanstack/react-form';
 // import { Link, useNavigate } from '@tanstack/react-router';
 import { Loader2, LogIn } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { IconFacebook, IconGithub } from '@/assets/brand-icons';
@@ -11,7 +12,8 @@ import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
 import { signIn } from '@/lib/auth-client';
-import { cn, sleep } from '@/lib/utils';
+
+import { cn } from '@/lib/utils';
 
 const signInSchema = z.object({
     email: z.email({
@@ -34,7 +36,7 @@ export default function SignInForm({
     redirectTo,
     ...props
 }: SignInFormProps) {
-    // const navigate = useNavigate();
+    const router = useRouter();
     const form = useForm({
         defaultValues: {
             email: '',
@@ -46,22 +48,36 @@ export default function SignInForm({
         onSubmit: async ({ value }) => {
             console.log(value);
             const { email, password } = value;
-            const { data, error } = await signIn.email({
-                email, // user email address
-                password, // user password -> min 8 characters by default
-            });
-            console.log('DATA: ', data);
+            // const { data, error } =
+            await signIn.email(
+                {
+                    email, // user email address
+                    password, // user password -> min 8 characters by default
+                },
+                {
+                    onRequest: () => {},
+                    onResponse: () => {},
+                    onSuccess: () => {
+                        toast.success('Successfully signed in!');
+                        router.push('/dashboard');
+                    },
+                    onError: (ctx) => {
+                        toast.error(ctx.error.message);
+                    },
+                }
+            );
+            // console.log('DATA: ', data);
 
-            if (error) {
-                console.log('ERROR: ', error);
-                toast.error(error.message || 'Failed to sign in');
-            } else {
-                toast.success('Successfully signed in!');
-                await sleep(500);
-                // Redirect to the stored location or default to dashboard
-                const targetPath = redirectTo || '/';
-                // await navigate({ to: targetPath, replace: true });
-            }
+            // if (error) {
+            //     console.log('ERROR: ', error);
+            //     toast.error(error.message || 'Failed to sign in');
+            // } else {
+            //     toast.success('Successfully signed in!');
+            //     await sleep(500);
+            //     // Redirect to the stored location or default to dashboard
+            //     const targetPath = redirectTo || '/';
+            //     // await navigate({ to: targetPath, replace: true });
+            // }
         },
     });
     return (

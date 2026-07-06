@@ -1,9 +1,11 @@
 'use client';
 import { useForm } from '@tanstack/react-form';
 import { Loader2, LogIn } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
+
 import {
     Field,
     FieldError,
@@ -33,7 +35,7 @@ export default function SignUpForm({
     redirectTo,
     ...props
 }: SignUpFormProps) {
-    // const navigate = useNavigate();
+    const router = useRouter();
     const form = useForm({
         defaultValues: {
             name: '',
@@ -47,6 +49,7 @@ export default function SignUpForm({
             // return;
             const { name, email, password } = value;
             // const { data, error } = await signUp.email(
+
             await signUp.email(
                 {
                     email, // user email address
@@ -58,6 +61,7 @@ export default function SignUpForm({
                     onResponse: () => {},
                     onSuccess: () => {
                         toast.success('Successfully signed up!');
+                        router.push('/dashboard');
                     },
                     onError: (ctx) => {
                         toast.error(ctx.error.message);

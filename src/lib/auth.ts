@@ -22,9 +22,8 @@ export const auth = betterAuth({
     },
 
     trustedOrigins: [
-        // 'http://localhost',
-        // 'http://localhost:3000',
-        // 'http://192.168.31.70:3000',
+        'http://localhost:3000',
+        'http://192.168.31.70:3000',
         'https://ekspertiza.eu',
     ],
     plugins: [nextCookies()], // make sure tanstackStartCookies is the last plugin in the array

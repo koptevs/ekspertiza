@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import { SignOutButton } from '@/components/sign-out-button';
 import { auth } from '@/lib/auth';
 import { ContentSection } from '../components/content-section';
 
@@ -15,6 +16,7 @@ const SettingsProfilePage = async () => {
             title='Profile'
         >
             <div>
+                <SignOutButton />
                 <div>SettingsProfilePage</div>
                 <pre className='overflow-clip text-sm'>
                     {' '}

@@ -1,21 +1,12 @@
 'use client';
 
-import { mergeProps } from '@base-ui/react/merge-props';
-import { useRender } from '@base-ui/react/use-render';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { signOut } from '@/lib/auth-client';
 
-interface SignOutButtonState extends Record<string, unknown> {
-    isPending: boolean;
-}
-
-interface SignOutButtonProps
-    extends useRender.ComponentProps<'button', SignOutButtonState> {}
-
-export const SignOutButton = ({ render, ...props }: SignOutButtonProps) => {
+export const SignOutButton = () => {
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
 
@@ -39,18 +30,14 @@ export const SignOutButton = ({ render, ...props }: SignOutButtonProps) => {
         });
     }
 
-    const state: SignOutButtonState = { isPending };
-
-    const defaultProps: useRender.ElementProps<'button'> = {
-        disabled: isPending,
-        onClick: handleClick,
-        children: 'Sign out',
-    };
-
-    return useRender<SignOutButtonState, HTMLButtonElement, undefined>({
-        defaultTagName: 'button',
-        render: render ?? <Button size='sm' variant='destructive' />,
-        state,
-        props: mergeProps<'button'>(defaultProps, props),
-    });
+    return (
+        <Button
+            disabled={isPending}
+            onClick={handleClick}
+            size='sm'
+            variant='destructive'
+        >
+            Sign out
+        </Button>
+    );
 };
