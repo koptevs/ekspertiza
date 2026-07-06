@@ -19,7 +19,7 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { authClient } from '@/lib/auth-client';
+import { signOut, useSession } from '@/lib/auth-client';
 // import PublicMainNavigationMobile from './public-main-navigation-mobile-sheet';
 
 import PublicMainNavigationMobile from './public-main-navigation-mobile-drawer';
@@ -63,12 +63,12 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export default function PublicMainNavigation() {
-    const { data: session, isPending } = authClient.useSession();
+    const { data: session, isPending } = useSession();
     console.log('session:', session);
     const router = useRouter();
 
     async function handleSignOut() {
-        await authClient.signOut({
+        await signOut({
             fetchOptions: {
                 onSuccess: () => {
                     toast.info('Logged out', {
@@ -264,7 +264,7 @@ export default function PublicMainNavigation() {
                             <div className='flex items-center gap-2'>
                                 <Button
                                     onClick={() => {
-                                        void authClient.signOut({
+                                        void signOut({
                                             fetchOptions: {
                                                 onSuccess: () => {
                                                     router.push('/'); // redirect to login page

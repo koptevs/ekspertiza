@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
-import { authClient } from '@/lib/auth-client';
+import { signIn } from '@/lib/auth-client';
 import { cn, sleep } from '@/lib/utils';
 
 const signInSchema = z.object({
@@ -46,7 +46,7 @@ export default function SignInForm({
         onSubmit: async ({ value }) => {
             console.log(value);
             const { email, password } = value;
-            const { data, error } = await authClient.signIn.email({
+            const { data, error } = await signIn.email({
                 email, // user email address
                 password, // user password -> min 8 characters by default
             });

@@ -58,6 +58,7 @@ const data = {
             title: 'Settings',
             url: '/dashboard/settings',
             icon: Settings,
+            isActive: true,
             items: [
                 {
                     title: 'Profile',
@@ -76,7 +77,6 @@ const data = {
             title: 'Playground',
             url: '#',
             icon: SquareTerminal,
-            isActive: true,
             items: [
                 {
                     title: 'History',

@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
 
-import { authClient } from '@/lib/auth-client';
+import { signUp } from '@/lib/auth-client';
 
 const signUpSchema = z.object({
     name: z
@@ -46,8 +46,8 @@ export default function SignUpForm({
         onSubmit: async ({ value }) => {
             // return;
             const { name, email, password } = value;
-            // const { data, error } = await authClient.signUp.email(
-            await authClient.signUp.email(
+            // const { data, error } = await signUp.email(
+            await signUp.email(
                 {
                     email, // user email address
                     password, // user password -> min 8 characters by default
