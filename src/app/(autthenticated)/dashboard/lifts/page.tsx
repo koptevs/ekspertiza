@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getAllLifts } from '@/actions/liftActions';
-
+export const revalidate = 60
 const LiftsPage = async () => {
     const lifts = await getAllLifts();
     return (
