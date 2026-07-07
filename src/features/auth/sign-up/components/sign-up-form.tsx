@@ -2,10 +2,10 @@
 import { useForm } from '@tanstack/react-form';
 import { Loader2, LogIn } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
-
 import {
     Field,
     FieldError,
@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { PasswordInput } from '@/components/ui/password-input';
-
 import { signUp } from '@/lib/auth-client';
 
 const signUpSchema = z.object({
@@ -35,6 +34,7 @@ export default function SignUpForm({
     redirectTo,
     ...props
 }: SignUpFormProps) {
+    const [isPending, setIsPending] = useState(false);
     const router = useRouter();
     const form = useForm({
         defaultValues: {
@@ -57,8 +57,12 @@ export default function SignUpForm({
                     name, // user display name
                 },
                 {
-                    onRequest: () => {},
-                    onResponse: () => {},
+                    onRequest: () => {
+                        setIsPending(true);
+                    },
+                    onResponse: () => {
+                        setIsPending(false);
+                    },
                     onSuccess: () => {
                         toast.success('Successfully signed up!');
                         router.push('/dashboard');
@@ -208,21 +212,19 @@ export default function SignUpForm({
                     ]}
                 >
                     {([canSubmit, isSubmitting]) => (
-                        <>
-                            <Button
-                                className='mt-2 py-[18px]'
-                                disabled={!canSubmit}
-                                form='form-signup'
-                                type='submit'
-                            >
-                                {isSubmitting ? (
-                                    <Loader2 className='animate-spin' />
-                                ) : (
-                                    <LogIn />
-                                )}
-                                Sign Up
-                            </Button>
-                        </>
+                        <Button
+                            className='mt-2 py-[18px]'
+                            disabled={!canSubmit}
+                            form='form-signup'
+                            type='submit'
+                        >
+                            {isSubmitting ? (
+                                <Loader2 className='animate-spin' />
+                            ) : (
+                                <LogIn />
+                            )}
+                            Sign Up
+                        </Button>
                     )}
                 </form.Subscribe>
             </FieldGroup>

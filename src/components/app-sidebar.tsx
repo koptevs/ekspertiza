@@ -4,6 +4,7 @@ import {
     AudioWaveform,
     BookOpen,
     Bot,
+    CalendarArrowUp,
     Command,
     ContactRound,
     Frame,
@@ -13,6 +14,7 @@ import {
     Settings,
     SquareTerminal,
     UserRoundCog,
+    Users,
 } from 'lucide-react';
 import type * as React from 'react';
 import { NavMain } from '@/components/nav-main';
@@ -55,10 +57,29 @@ const data = {
     ],
     navMain: [
         {
+            title: 'Root',
+            url: '/dashboard/',
+            icon: Settings,
+            isActive: true,
+            items: [
+                {
+                    title: 'Lifts',
+                    url: '/dashboard/lifts',
+                    icon: CalendarArrowUp,
+                },
+
+                {
+                    title: 'Mechanics',
+                    url: '/dashboard/mechanics',
+                    icon: Users,
+                },
+            ],
+        },
+        {
             title: 'Settings',
             url: '/dashboard/settings',
             icon: Settings,
-            isActive: true,
+            isActive: false,
             items: [
                 {
                     title: 'Profile',

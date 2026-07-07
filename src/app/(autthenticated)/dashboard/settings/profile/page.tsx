@@ -8,7 +8,14 @@ const SettingsProfilePage = async () => {
         headers: await headers(),
     });
     if (!session) {
-        return <p className='text-destructive'>Unauthorized</p>;
+        return (
+            <ContentSection
+                desc='This is how others will see you on the site.'
+                title='Profile'
+            >
+                <p className='text-destructive'>Unauthorized</p>
+            </ContentSection>
+        );
     }
     return (
         <ContentSection
