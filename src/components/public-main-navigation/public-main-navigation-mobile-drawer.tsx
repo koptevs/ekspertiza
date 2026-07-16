@@ -75,6 +75,7 @@ const PublicMainNavigationMobile = () => {
                     <Link
                         className='block px-4 py-1 font-semibold text-blue-900 text-xl'
                         href='/dashboard'
+                        prefetch={false}
                     >
                         Dashboard
                     </Link>
