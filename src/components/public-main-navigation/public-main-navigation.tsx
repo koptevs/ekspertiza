@@ -128,7 +128,11 @@ export default function PublicMainNavigation() {
                     <NavigationMenuItem>
                         <NavigationMenuLink
                             className={navigationMenuTriggerStyle()}
-                            render={<Link href='/dashboard'>Dashboard</Link>}
+                            render={
+                                <Link href='/dashboard' prefetch={false}>
+                                    Dashboard
+                                </Link>
+                            }
                         />
                     </NavigationMenuItem>
                     {/* START */}

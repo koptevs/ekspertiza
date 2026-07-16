@@ -59,6 +59,7 @@ export default function SignInForm({
                     onResponse: () => {},
                     onSuccess: () => {
                         toast.success('Successfully signed in!');
+                        router.refresh();
                         router.push('/dashboard');
                     },
                     onError: (ctx) => {
