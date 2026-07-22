@@ -1,5 +1,13 @@
-import { int, mysqlTable, varchar } from 'drizzle-orm/mysql-core';
-import { agreements } from '@/db/schema';
+import {
+    decimal,
+    int,
+    mysqlEnum,
+    mysqlTable,
+    smallint,
+    text,
+    tinyint,
+    varchar,
+} from 'drizzle-orm/mysql-core';
 
 const lifts = mysqlTable('lifts', {
     // const liftsTable = mysqlTable('lifts', {
@@ -8,32 +16,48 @@ const lifts = mysqlTable('lifts', {
         .unique()
         .notNull()
         .primaryKey(),
-    agreementId: int('agreement_id', { unsigned: true }).references(
-        () => agreements.id
-    ),
     regNumber: varchar('reg_number', { length: 32 }).notNull().unique(),
-    // birUrl: varchar('bir_url', { length: 256 }),
-    // type: mysqlEnum(['elektriskais', 'hidrauliskais']).notNull(),
-    // category: mysqlEnum(['1', '2', '3', 'CE']).notNull(),
-    // factoryNumber: varchar('factory_number', { length: 32 }).notNull(),
-    // model: varchar({ length: 64 }),
-    // speed: decimal({ precision: 8, scale: 2 }),
-    // load: smallint({ unsigned: true }).notNull(),
-    // manufacturer: varchar({ length: 128 }),
-    // installer: varchar({ length: 128 }),
-    // installationYear: year('installation_year').notNull(),
-    // floorsServiced: tinyint('floors_serviced', { unsigned: true }), // unsigned - max 255
-    // addressCountry: varchar('address_country', { length: 64 }).notNull(),
-    // addressCity: varchar('address_city', { length: 64 }).notNull(),
-    address: varchar('address', { length: 256 }).notNull(),
-    // addressPostalCode: varchar('address_postal_code', { length: 8 }).notNull(),
-    // googleCoordinates: varchar('google_coordinates', { length: 128 }),
-    // buildingSeries: varchar('building_series', { length: 16 }),
-    // notes: text(),
-    // inspectionStatus: mysqlEnum('inspection_status', ['X', '0', '1', '2', '3'])
-    //     .default('X')
-    //     .notNull(),
-    // entryCode: varchar('entry_code', { length: 128 }),
+    factoryNumber: varchar('factory_number', { length: 32 }).notNull(),
+    model: varchar({ length: 64 }),
+    floorsServiced: tinyint('floors_serviced', { unsigned: true }), // unsigned - max 255
+    speed: decimal({ precision: 8, scale: 2 }),
+    load: smallint({ unsigned: true }).notNull(),
+    manufacturer: varchar({ length: 128 }),
+    type: mysqlEnum(['elektriskais', 'hidrauliskais']).notNull(),
+    category: mysqlEnum(['1', '2', '3', 'CE']).notNull(),
+    installationYear: smallint('installation_year', {
+        unsigned: true,
+    }).notNull(),
+    installer: varchar({ length: 128 }),
+    addressCountry: varchar('address_country', { length: 64 })
+        .notNull()
+        .default('Latvija'),
+    addressCity: varchar('address_city', { length: 64 })
+        .notNull()
+        .default('Rīga'),
+    addressPostalCode: varchar('address_postal_code', { length: 8 }).notNull(),
+    addressNovads: varchar('address_novads', { length: 128 }),
+    addressStreet: varchar('address_street', { length: 128 }).notNull(),
+    addressBuildingNr: varchar('address_building_nr', { length: 8 }).notNull(),
+    addressBuildingEntrance: varchar('address_building_entrance', {
+        length: 8,
+    }),
+    buildingSeries: varchar('building_series', { length: 16 }),
+    liftPlacement: varchar('lift_placement', { length: 16 }),
+    googleCoordinates: varchar('google_coordinates', { length: 128 }),
+    inspectionStatus: mysqlEnum('inspection_status', ['X', '0', '1', '2', '3'])
+        .default('X')
+        .notNull(),
+    entryCode: varchar('entry_code', { length: 128 }),
+    birUrl: varchar('bir_url', { length: 256 }),
+    notes: text(),
+
+    // currentLiftManager: int('current_lift_manager', { unsigned: true }).references(
+    //     () => lift_managers.id
+    // ),
+    // agreementId: int('agreement_id', { unsigned: true }).references(
+    //     () => agreements.id
+    // ),
     // // you can use { mode: 'date' }, if you want to have Date as type for this column
     // nextInspectionDate: date('next_inspection_date', { mode: 'string' }),
     // createdAt: timestamp('created_at', { mode: 'string' }).defaultNow(),
