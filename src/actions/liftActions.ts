@@ -71,17 +71,17 @@ export const getLiftById = async (id: number) => {
     const [lift] = await db.select().from(lifts).where(eq(lifts.id, id));
     return lift ?? null;
 };
-export const addLift = async (
-    agreementId: number,
-    regNumber: string,
-    address: string
-) => {
-    await db.insert(lifts).values({
-        agreementId,
-        regNumber,
-        address,
-    });
-};
+// export const addLift = async (
+//     agreementId: number,
+//     regNumber: string,
+//     address: string
+// ) => {
+//     await db.insert(lifts).values({
+//         agreementId,
+//         regNumber,
+//         address,
+//     });
+// };
 export const deleteLift = async (id: number) => {
     await db.delete(lifts).where(eq(lifts.id, id));
     revalidatePath('/');
